@@ -31,6 +31,10 @@ var (
 			Help:      "UNIX timestamp of the last message on the specified MQTT topic",
 		},
 		[]string{"topic"})
+
+	mqttPass = flag.String("mqtt_password",
+		"",
+		"password to sign into the MQTT broker")
 )
 
 func init() {
@@ -68,7 +72,13 @@ type statusLoop struct {
 
 func credentialProvider() (username string, password string) {
 	password_path := "heuselfamily/mqtt/"
+
 	username = "regelwerk"
+
+	if *mqttPass != "" {
+		return username, *mqttPass
+	}
+
 	out, err := exec.Command("gopass", "show", "--password", password_path+username).Output()
 	if err != nil {
 		log.Fatal(err)
