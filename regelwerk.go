@@ -71,7 +71,7 @@ type statusLoop struct {
 }
 
 func credentialProvider() (username string, password string) {
-	password_path := "heuselfamily/mqtt/"
+	passwordPath := "heuselfamily/mqtt/"
 
 	username = "regelwerk"
 
@@ -79,7 +79,12 @@ func credentialProvider() (username string, password string) {
 		return username, *mqttPass
 	}
 
-	out, err := exec.Command("gopass", "show", "--password", password_path+username).Output()
+	passEnv := os.Getenv("REGELWERK_PASSWORD")
+	if passEnv != "" {
+		return username, passEnv
+	}
+
+	out, err := exec.Command("gopass", "show", "--password", passwordPath+username).Output()
 	if err != nil {
 		log.Fatal(err)
 	}

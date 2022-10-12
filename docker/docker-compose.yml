@@ -1,0 +1,14 @@
+---
+version: '3.0'
+
+services:
+  regelwerk:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: "regelwerk:latest"
+    env_file:
+      - credentials.env
+    ports:
+      - 37731:37731
+    restart: always
