@@ -4,10 +4,5 @@
 package main
 
 var loops = []controlLoop{
-	&avrPowerLoop{},
-	&hallwayLightDoor{},
-	newHallwayLightLate(),
-	&nukiRTOLoop{},
-	&shellyEnergyMeterLoop{},
-	&motionLoop{},
+	&sinkchange{},
 }
