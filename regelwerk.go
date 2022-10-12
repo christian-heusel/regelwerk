@@ -66,6 +66,18 @@ type statusLoop struct {
 	statusPrev string
 }
 
+func credentialProvider() (username string, password string) {
+	password_path := "heuselfamily/mqtt/"
+	username = "regelwerk"
+	out, err := exec.Command("gopass", "show", "--password", password_path+username).Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+	password = string(out)
+	log.Println(password)
+	return username, password
+}
+
 func (l *statusLoop) Lock()   { l.mu.Lock() }
 func (l *statusLoop) Unlock() { l.mu.Unlock() }
 
@@ -266,8 +278,9 @@ func regelwerk() error {
 	}
 
 	opts := mqtt.NewClientOptions().
-		AddBroker("tcp://dr.lan:1883").
+		AddBroker("tcp://scotty-the-fourth.fritz.box:1883").
 		SetClientID("regelwerk-" + host).
+		SetCredentialsProvider(credentialProvider).
 		SetOnConnectHandler(func(client mqtt.Client) {
 			// TODO: add MQTTTopics() []string to controlLoop interface and
 			// subscribe to the union of topics, with the same handler that feeds to the source control loops
