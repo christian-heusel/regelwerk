@@ -1,20 +1,14 @@
 package main
 
-import (
-	"time"
-)
-
-type sinkchange struct {
+type krkStudioBoxen struct {
 	statusLoop
 
-	joeryzenDefaultSink    string
-	michaelPhoneExpiration time.Time
-	leaPhoneExpiration     time.Time
+	joeryzenDefaultSink string
 
 	previous string
 }
 
-func (l *sinkchange) ProcessEvent(ev MQTTEvent) []MQTTPublish {
+func (l *krkStudioBoxen) ProcessEvent(ev MQTTEvent) []MQTTPublish {
 	// var lease struct {
 	//	Expiration time.Time `json:"expiration"`
 	// }
@@ -29,14 +23,9 @@ func (l *sinkchange) ProcessEvent(ev MQTTEvent) []MQTTPublish {
 		return nil // event did not influence our state
 	}
 
-	now := ev.Timestamp
-	weekday, hour, minute := now.Weekday(), now.Hour(), now.Minute()
-	_, _, _ = weekday, hour, minute // TODO
-	phoneHome := l.michaelPhoneExpiration.After(now) ||
-		l.leaPhoneExpiration.After(now)
-	_ = phoneHome
 	l.statusf("joeryzenDefaultSink=%s", l.joeryzenDefaultSink)
 	payload := "OFF"
+
 	if l.joeryzenDefaultSink == "alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.analog-stereo" {
 		payload = "ON"
 	}

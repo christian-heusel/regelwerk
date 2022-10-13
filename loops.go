@@ -4,5 +4,5 @@
 package main
 
 var loops = []controlLoop{
-	&sinkchange{},
+	&krkStudioBoxen{},
 }
