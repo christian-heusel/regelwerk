@@ -26,7 +26,8 @@ func (l *krkStudioBoxen) ProcessEvent(ev MQTTEvent) []MQTTPublish {
 	l.statusf("joeryzenDefaultSink=%s", l.joeryzenDefaultSink)
 	payload := "OFF"
 
-	if l.joeryzenDefaultSink == "alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.analog-stereo" {
+	if l.joeryzenDefaultSink == "alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.analog-stereo" ||
+	   l.joeryzenDefaultSink == "Line (Steinberg UR22C)"{
 		payload = "ON"
 	}
 	if l.previous == payload {
