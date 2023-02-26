@@ -293,7 +293,7 @@ func regelwerk() error {
 	}
 
 	opts := mqtt.NewClientOptions().
-		AddBroker("tcp://scotty-the-fourth.fritz.box:1883").
+		AddBroker("tcp://scotty-the-fifth.fritz.box:1883").
 		SetClientID("regelwerk-" + host).
 		SetCredentialsProvider(credentialProvider).
 		SetOnConnectHandler(func(client mqtt.Client) {
