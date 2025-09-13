@@ -1,4 +1,4 @@
-FROM golang:1.20.3-bullseye
+FROM golang:1.25.1-bookworm
 MAINTAINER Christian Heusel <christian@heusel.eu>
 
 WORKDIR /go/src
